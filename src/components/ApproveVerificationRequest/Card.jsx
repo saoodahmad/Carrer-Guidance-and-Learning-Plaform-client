@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 
 import {
   Button,
@@ -9,12 +9,15 @@ import {
   TextField,
 } from '@material-ui/core';
 
-import {BASE_URL} from '../../api'
+import { BASE_URL } from '../../api';
 import useStyles from './Styles';
-import { approveProfileVerificationRequest, rejectProfileVerificationRequest } from '../../services/usersService';
+import {
+  approveProfileVerificationRequest,
+  rejectProfileVerificationRequest,
+} from '../../services/usersService';
 import CustomSnackBar from '../CustomSnackBar/CustomSnackBar';
 
-const VerificationRequestIDField = ({value}) => {
+const VerificationRequestIDField = ({ value }) => {
   return (
     <Grid item xs={12}>
       <Grid
@@ -39,7 +42,7 @@ const VerificationRequestIDField = ({value}) => {
   );
 };
 
-const RemarkField = ({value, state, setState}) => {
+const RemarkField = ({ value, state, setState }) => {
   return (
     <Grid item xs={12}>
       <Grid
@@ -60,7 +63,7 @@ const RemarkField = ({value, state, setState}) => {
             size="small"
             multiline
             value={value}
-            onChange={(e)=> setState({...state, remark : e.target.value})}
+            onChange={(e) => setState({ ...state, remark: e.target.value })}
           ></TextField>
         </Grid>
       </Grid>
@@ -68,11 +71,11 @@ const RemarkField = ({value, state, setState}) => {
   );
 };
 
-const ViewDocument = ({value}) => {
+const ViewDocument = ({ value }) => {
   return (
     <Grid item xs={12}>
       <Grid container justifyContent="space-between" spacing={1}>
-        <Grid item xs={12} >
+        <Grid item xs={12}>
           <Typography variant="subtitle1" color="textSecondary">
             Doc
           </Typography>
@@ -89,17 +92,21 @@ const ViewDocument = ({value}) => {
   );
 };
 
-const ViewUser = ({value}) => {
+const ViewUser = ({ value }) => {
   return (
     <Grid item xs={12}>
       <Grid container justifyContent="space-between" spacing={1}>
-        <Grid item xs={12} >
+        <Grid item xs={12}>
           <Typography variant="subtitle1" color="textSecondary">
             User
           </Typography>
         </Grid>
         <Grid item xs={12}>
-          <a href={`/admin/view-user/${value}`} target="_blank" rel="noreferrer">
+          <a
+            href={`/admin/view-user/${value}`}
+            target="_blank"
+            rel="noreferrer"
+          >
             <Button size="small" color="primary">
               View
             </Button>
@@ -110,11 +117,16 @@ const ViewUser = ({value}) => {
   );
 };
 
-const ActionButton = ({handleApproval, handleRejection}) => {
+const ActionButton = ({ handleApproval, handleRejection }) => {
   const classes = useStyles();
   return (
     <Grid item xs={12}>
-      <Grid container justifyContent="space-evenly" alignItems="center" spacing={2}>
+      <Grid
+        container
+        justifyContent="space-evenly"
+        alignItems="center"
+        spacing={2}
+      >
         <Grid item xs={5}>
           <Button
             type="submit"
@@ -142,8 +154,7 @@ const ActionButton = ({handleApproval, handleRejection}) => {
   );
 };
 
-const VerificationRequestApprovalCard = ({request, refetch}) => {
-
+const VerificationRequestApprovalCard = ({ request, refetch }) => {
   const [state, setState] = useState(request);
 
   const [loading, setLoading] = useState(null);
@@ -151,39 +162,41 @@ const VerificationRequestApprovalCard = ({request, refetch}) => {
 
   const classes = useStyles();
 
-  const handleApproval = async() => {
-
+  const handleApproval = async () => {
     setLoading(true);
 
-    const {error} = await approveProfileVerificationRequest(state);
+    const { error } = await approveProfileVerificationRequest(state);
 
-    if(error)
-    {
+    if (error) {
       setErr(error);
     }
 
     setLoading(false);
-  }
+  };
 
   const handleRejection = async () => {
     setLoading(true);
 
-    const {error} = await rejectProfileVerificationRequest(state);
+    const { error } = await rejectProfileVerificationRequest(state);
 
-    if(error)
-    {
+    if (error) {
       setErr(error);
     }
 
     setLoading(false);
-  }
+  };
   return (
     <Grid item xs={12} sm={6}>
-       {loading === false && err && (
+      {loading === true && <CustomSnackBar message="loading" severity="info" />}
+      {loading === false && err && (
         <CustomSnackBar message={err} severity="error" />
       )}
       {loading === false && !err && (
-        <CustomSnackBar message="Success" severity="success" refetch={refetch} />
+        <CustomSnackBar
+          message="Success"
+          severity="success"
+          refetch={refetch}
+        />
       )}
       <Card className={classes.card}>
         <CardContent className={classes.cardContent}>
@@ -198,11 +211,18 @@ const VerificationRequestApprovalCard = ({request, refetch}) => {
 
             <ViewUser value={state.user} />
 
-            <ViewDocument value={state.verificationDocumentURL}/>
+            <ViewDocument value={state.verificationDocumentURL} />
 
-            <RemarkField  value={state.remark} state={state} setState={setState} />
+            <RemarkField
+              value={state.remark}
+              state={state}
+              setState={setState}
+            />
 
-            <ActionButton  handleApproval={handleApproval} handleRejection={handleRejection} />
+            <ActionButton
+              handleApproval={handleApproval}
+              handleRejection={handleRejection}
+            />
           </Grid>
         </CardContent>
       </Card>

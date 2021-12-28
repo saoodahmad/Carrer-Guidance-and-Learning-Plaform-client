@@ -12,10 +12,16 @@ const HOC = (props) => {
   const useStyles = makeStyles((theme) =>
     createStyles({
       container: {
+        // marginTop: '4.5vh',
+        // backgroundColor: '#fcffff',
+        minHeight: '71vh',
+        paddingTop: '4.5vh',
         marginTop: '4.5vh',
         backgroundColor: '#fcffff',
       },
     })
+
+    
   );
 
   const classes = useStyles();

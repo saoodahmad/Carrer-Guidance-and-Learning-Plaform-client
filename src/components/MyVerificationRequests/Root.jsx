@@ -36,14 +36,17 @@ const Root = () => {
 
   return (
     <Container maxWidth="md" className={classes.container}>
+      {loading === true && <CustomSnackBar message="loading" severity="info" />}
       {loading === false && err && (
         <CustomSnackBar message={err} severity="error" />
       )}
       {loading === false && verificationRequests && (
-          <CustomSnackBar message="Success" severity="success" />
-        )}
+        <CustomSnackBar message="Success" severity="success" />
+      )}
 
-      <Typography variant="h6" className={classes.heading}>My Verification Request</Typography>
+      <Typography variant="h6" className={classes.heading}>
+        My Verification Request
+      </Typography>
       {verificationRequests && (
         <Grid
           container
@@ -52,7 +55,7 @@ const Root = () => {
           spacing={4}
         >
           {verificationRequests.map((request) => (
-            <VerificationRequestCard request={request} key={request._id}/>
+            <VerificationRequestCard request={request} key={request._id} />
           ))}
         </Grid>
       )}

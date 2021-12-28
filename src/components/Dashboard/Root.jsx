@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Container } from '@material-ui/core'
+import { Container } from '@material-ui/core';
 import { getDashboard } from '../../services/usersService';
 import MentorDashboard from './MentorDashboard';
 import MenteeDashboard from './MenteeDashboard';
@@ -12,7 +12,6 @@ const Root = () => {
   const [err, setErr] = useState(null);
 
   useEffect(() => {
-    
     setLoading(true);
     const func = async () => {
       const { user, error } = await getDashboard();
@@ -26,17 +25,25 @@ const Root = () => {
     func();
   }, []);
 
-  return( 
-  <Container 
-  // className={classes.container}
-  >     
-      {loading === false && err && <CustomSnackBar message={err} severity="error"/>}
-      {loading === false && user && <CustomSnackBar message="Success" severity="success"/>}
-      {user && (
-          user.role === 'mentor' ? <MentorDashboard  user={user} /> : user.role === 'mentee' ? <MenteeDashboard  user={user} /> : <AdminDashboard  user={user} />
+  return (
+    <Container>
+      {loading === true && <CustomSnackBar message="loading" severity="info" />}
+      {loading === false && err && (
+        <CustomSnackBar message={err} severity="error" />
       )}
-  </Container>
-  )
+      {loading === false && user && (
+        <CustomSnackBar message="Success" severity="success" />
+      )}
+      {user &&
+        (user.role === 'mentor' ? (
+          <MentorDashboard user={user} />
+        ) : user.role === 'mentee' ? (
+          <MenteeDashboard user={user} />
+        ) : (
+          <AdminDashboard user={user} />
+        ))}
+    </Container>
+  );
 };
 
 export default Root;

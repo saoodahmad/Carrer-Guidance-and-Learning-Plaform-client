@@ -20,43 +20,46 @@ const CustomSnackBar = ({ message, severity, redirect, refetch }) => {
     }
     setOpen(false);
 
-    if(redirect) {
-    history.push(redirect);
+    if (redirect) {
+      history.push(redirect);
     }
-    if(refetch)
-    {
+    if (refetch) {
       refetch();
     }
   };
 
   return (
     <div>
-      {severity === 'error' ? 
-      <Snackbar
-        anchorOrigin={{
-          vertical: 'bottom',
-          horizontal: 'center',
-        }}
-        open={open}
-        onClose={handleClose}
-      >
-        <Alert onClose={handleClose} severity={severity}>
-          {message}
-        </Alert>
-      </Snackbar> : <Snackbar
-        anchorOrigin={{
-          vertical: 'bottom',
-          horizontal: 'center',
-        }}
-        open={open}
-        autoHideDuration={2000}
-        onClose={handleClose}
-      >
-        <Alert onClose={handleClose} severity={severity}>
-          {message}
-        </Alert>
-      </Snackbar>
-}
+      {
+        severity === 'success' ? (
+          <Snackbar
+            anchorOrigin={{
+              vertical: 'bottom',
+              horizontal: 'center',
+            }}
+            open={open}
+            autoHideDuration={2000}
+            onClose={handleClose}
+          >
+            <Alert onClose={handleClose} severity={severity}>
+              {message}
+            </Alert>
+          </Snackbar>
+        ) : (
+          <Snackbar
+            anchorOrigin={{
+              vertical: 'bottom',
+              horizontal: 'center',
+            }}
+            open={open}
+            onClose={handleClose}
+          >
+            <Alert onClose={handleClose} severity={severity}>
+              {message}
+            </Alert>
+          </Snackbar>
+        ) 
+      }
     </div>
   );
 };

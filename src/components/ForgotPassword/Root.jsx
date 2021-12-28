@@ -15,7 +15,10 @@ import useStyles from './Styles';
 import CustomSnackBar from '../CustomSnackBar/CustomSnackBar';
 import { resetPassword } from '../../services/authService';
 
-const EmailField = ({ passwordResetCredentials, setPasswordResetCredentials }) => {
+const EmailField = ({
+  passwordResetCredentials,
+  setPasswordResetCredentials,
+}) => {
   return (
     <Grid item>
       <TextField
@@ -161,14 +164,14 @@ const ResetPasswordButton = () => {
     </Button>
   );
 };
-const Form = ({ passwordResetCredentials, setPasswordResetCredentials, handlePasswordReset }) => {
+const Form = ({
+  passwordResetCredentials,
+  setPasswordResetCredentials,
+  handlePasswordReset,
+}) => {
   return (
     <Grid item>
-      <form
-        autoComplete="off"
-        noValidate
-        onSubmit={handlePasswordReset}
-      >
+      <form autoComplete="off" noValidate onSubmit={handlePasswordReset}>
         <Grid
           container
           direction="column"
@@ -216,20 +219,19 @@ const Root = () => {
 
   const [loading, setLoading] = useState(null);
 
-  const handlePasswordReset = async(e) => {
+  const handlePasswordReset = async (e) => {
     e.preventDefault();
     setErr(null);
-    setLoading(true)
+    setLoading(true);
 
-    const {error} = await resetPassword(passwordResetCredentials);
-  
+    const { error } = await resetPassword(passwordResetCredentials);
+
     setLoading(false);
-    
+
     if (error) {
-      setErr(error)
-    } 
-    
-  }
+      setErr(error);
+    }
+  };
 
   return (
     <div>
@@ -249,8 +251,18 @@ const Root = () => {
           />
         </Grid>
 
-        {loading === false && err && <CustomSnackBar message={err} severity="error" />}
-        {loading === false && !err && <CustomSnackBar message="Password  Reset Success! Login Again" severity="success"/> }
+        {loading === true && (
+          <CustomSnackBar message="loading" severity="info" />
+        )}
+        {loading === false && err && (
+          <CustomSnackBar message={err} severity="error" />
+        )}
+        {loading === false && !err && (
+          <CustomSnackBar
+            message="Password  Reset Success! Login Again"
+            severity="success"
+          />
+        )}
       </Container>
     </div>
   );

@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { getAllMentors } from '../../services/usersService';
 import CustomSnackBar from '../CustomSnackBar/CustomSnackBar';
+
 import MentorCard from './Card';
 
 import useStyles from './Styles';
@@ -33,6 +34,8 @@ const Root = () => {
   }, []);
   return (
     <Container maxWidth="md" className={classes.container}>
+      {loading === true && <CustomSnackBar message="loading" severity="info" />}
+
       {loading === false && err && (
         <CustomSnackBar message={err} severity="error" />
       )}
@@ -47,18 +50,18 @@ const Root = () => {
             direction="column"
             spacing={3}
           >
-              <Grid item>
-            <Grid container justifyContent="space-between" spacing={4}>
-              {mentors.map((mentor) => (
-                <MentorCard mentor={mentor} />
-              ))}
-            </Grid>
+            <Grid item>
+              <Grid container justifyContent="space-between" spacing={4}>
+                {mentors.map((mentor) => (
+                  <MentorCard mentor={mentor} />
+                ))}
+              </Grid>
             </Grid>
             <Grid item alignContent="center">
               <Link to={'/mentors'}>
                 <Button className={classes.button}>View More</Button>
-                </Link>
-              </Grid>
+              </Link>
+            </Grid>
           </Grid>
         </>
       )}

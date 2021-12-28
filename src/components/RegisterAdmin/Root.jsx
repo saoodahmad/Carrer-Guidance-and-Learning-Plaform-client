@@ -207,7 +207,9 @@ const Root = () => {
           handleRegistration = {handleRegistration}
         />
       </Grid>
-
+      {loading === true && (
+          <CustomSnackBar message="loading" severity="info" />
+        )}
       {loading === false && err && <CustomSnackBar message={err} severity="error" />}
         {loading === false && !err && <CustomSnackBar message="Admin Registration Success" severity="success"/> }
     </Container>

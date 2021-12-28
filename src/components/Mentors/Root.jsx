@@ -1,8 +1,6 @@
 import { Container, Grid, Select, Typography } from '@material-ui/core';
 import React, { useEffect, useState } from 'react';
-import {
-  getMentorsByCategory,
-} from '../../services/usersService';
+import { getMentorsByCategory } from '../../services/usersService';
 import { categoryOptions } from '../../utils/categories';
 import CustomSnackBar from '../CustomSnackBar/CustomSnackBar';
 import MentorCard from './Card';
@@ -68,7 +66,8 @@ const Root = () => {
     fetch();
   }, [category]);
   return (
-    <Container maxWidth="md" className={classes.container} >
+    <Container maxWidth="md" className={classes.container}>
+      {loading === true && <CustomSnackBar message="loading" severity="info" />}
       {loading === false && err && (
         <CustomSnackBar message={err} severity="error" />
       )}
@@ -81,7 +80,6 @@ const Root = () => {
         direction="column"
         justifyContent="space-between"
         spacing={10}
-        
       >
         <CategoryField
           category={category}
@@ -93,7 +91,7 @@ const Root = () => {
           {loading === false && !err && (
             <Grid container justifyContent="space-between" spacing={4}>
               {mentors.map((mentor) => (
-                <MentorCard mentor={mentor} key={mentor._id}/>
+                <MentorCard mentor={mentor} key={mentor._id} />
               ))}
             </Grid>
           )}

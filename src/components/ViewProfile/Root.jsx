@@ -180,7 +180,6 @@ const ContactField = ({ profileCredential }) => {
 };
 
 const HighestQualificationField = ({ profileCredential }) => {
-  
   return (
     <Grid item xs={12}>
       <Grid
@@ -190,7 +189,7 @@ const HighestQualificationField = ({ profileCredential }) => {
         justifyContent="space-between"
       >
         <Grid item xs={12} md={3}>
-          <Typography variant="subtitle1" >Highest Qualification</Typography>
+          <Typography variant="subtitle1">Highest Qualification</Typography>
         </Grid>
         <Grid item xs={12} md={8}>
           <TextField
@@ -423,18 +422,10 @@ const EditProfileButton = () => {
   );
 };
 
-const CategoryField = ({
-  profileCredential,
-  options,
-}) => {
- 
+const CategoryField = ({ profileCredential, options }) => {
   return (
     <Grid item>
-      <Grid
-        container
-        alignItems="center"
-        justifyContent="space-between"
-      >
+      <Grid container alignItems="center" justifyContent="space-between">
         <Grid item xs={12} md={3}>
           <Typography variant="subtitle">Category</Typography>
         </Grid>
@@ -488,7 +479,10 @@ const Form = ({ profileCredential }) => {
             <VerifiedField profileCredential={profileCredential} />
             <DisabledField profileCredential={profileCredential} />
             <ContactField profileCredential={profileCredential} />
-            <CategoryField profileCredential={profileCredential}  options={categoryOptions}/>
+            <CategoryField
+              profileCredential={profileCredential}
+              options={categoryOptions}
+            />
             <Grid item>
               {' '}
               <Typography variant="subtitle1">Academic Details</Typography>
@@ -580,6 +574,9 @@ const Root = ({ isAdminView, userID }) => {
   return (
     <div>
       <Container className={classes.container}>
+        {loading === true && (
+          <CustomSnackBar message="loading" severity="info" />
+        )}
         {loading === false && err && (
           <CustomSnackBar message={err} severity="error" />
         )}
@@ -612,19 +609,18 @@ const Root = ({ isAdminView, userID }) => {
             {!isAdminView && (
               <Grid item>
                 <Link to="/edit-my-profile">
-                <EditProfileButton />
+                  <EditProfileButton />
                 </Link>
-                
               </Grid>
             )}
 
-            {!isAdminView && !user.isVerified &&  (
+            {!isAdminView && !user.isVerified && (
               <VerificationDocumentUploadField
                 setVerificationDocument={setVerificationDocument}
               />
             )}
 
-            {!isAdminView && !user.isVerified &&  (
+            {!isAdminView && !user.isVerified && (
               <RequestVerificationButton
                 verificationRequestHandler={verificationRequestHandler}
               />

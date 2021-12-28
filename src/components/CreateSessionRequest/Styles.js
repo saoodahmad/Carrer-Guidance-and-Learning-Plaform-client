@@ -2,10 +2,10 @@ import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
   container: {
-    marginTop: '4.5vh',
-    paddingTop: '20px',
-    paddingBottom: '20px',
-    backgroundColor: '#fcffff',
+    // marginTop: '4.5vh',
+    // paddingTop: '20px',
+    // paddingBottom: '20px',
+    // backgroundColor: '#fcffff',
   },
 
   buttonContainer: {

@@ -30,7 +30,7 @@ const Root = () => {
     <div>
       <NavContainer />
       <HOC>
-        <Typography variant="h3">
+        <Typography variant="h6">
           Coming Soon
         </Typography>
       </HOC>

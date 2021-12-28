@@ -31,7 +31,7 @@ const Root = () => {
       <NavContainer />
       <HOC>
         <Typography variant="h6">
-          This project is developed as prototype for KMPG World After Covid=19
+          This project is developed as prototype for KMPG World After Covid-19
           Hackathon
         </Typography>
       </HOC>

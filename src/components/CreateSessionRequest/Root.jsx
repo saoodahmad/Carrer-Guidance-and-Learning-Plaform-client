@@ -172,14 +172,14 @@ const Form = ({
     </Grid>
   );
 };
-const Root = ({mentorID}) => {
-  const classes = useStyles();
+const Root = ({ mentorID }) => {
+  
 
   const [loading, setLoading] = useState(null);
   const [err, setErr] = useState(null);
 
   const [sessionRequestCredentials, setSessionRequestCredentials] = useState({
-    duration: 0 ,
+    duration: 0,
     subject: 'Excited to be your mentee',
     mentorID: mentorID,
   });
@@ -191,15 +191,18 @@ const Root = ({mentorID}) => {
 
     const totalMilliSeconds = date.getTime();
 
-    const durationInMilliSeconds = sessionRequestCredentials.duration * 60 * 1000;
+    const durationInMilliSeconds =
+      sessionRequestCredentials.duration * 60 * 1000;
 
-    const end =  new Date(totalMilliSeconds + durationInMilliSeconds);
-    
-    console.log(date, end)
-    // console.log(sessionRequestCredentials)
+    const end = new Date(totalMilliSeconds + durationInMilliSeconds);
+
     setLoading(true);
     setErr(null);
-    const { error } = await createSessionRequest(sessionRequestCredentials, date, end);
+    const { error } = await createSessionRequest(
+      sessionRequestCredentials,
+      date,
+      end
+    );
     if (error) {
       setErr(error);
     }
@@ -207,7 +210,7 @@ const Root = ({mentorID}) => {
   };
   return (
     <div>
-      <Container className={classes.container}>
+      <Container >
         <Grid
           container
           direction="column"
@@ -215,14 +218,14 @@ const Root = ({mentorID}) => {
           spacing={4}
           alignItems="center"
         >
+          {loading === true && (
+            <CustomSnackBar message="loading" severity="info" />
+          )}
           {loading === false && err && (
             <CustomSnackBar message={err} severity="error" />
           )}
           {loading === false && !err && (
-            <CustomSnackBar
-              message="Success"
-              severity="success"
-            />
+            <CustomSnackBar message="Success" severity="success" />
           )}
           <Grid item>
             <Typography variant="h6">Request Session</Typography>

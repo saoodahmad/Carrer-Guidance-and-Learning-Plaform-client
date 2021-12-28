@@ -38,6 +38,8 @@ const Root = () => {
 
   return (
     <Container maxWidth="md" className={classes.container}>
+
+      {loading === true && <CustomSnackBar message="loading" severity="info"/>}
       {loading === false && err && (
         <CustomSnackBar message={err} severity="error" />
       )}

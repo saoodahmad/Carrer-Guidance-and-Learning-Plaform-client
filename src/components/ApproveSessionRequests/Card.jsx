@@ -12,7 +12,10 @@ import {
 import useStyles from './Styles';
 
 import CustomSnackBar from '../CustomSnackBar/CustomSnackBar';
-import { approveSessionRequests, rejectSessionRequests } from '../../services/sessionRequestService';
+import {
+  approveSessionRequests,
+  rejectSessionRequests,
+} from '../../services/sessionRequestService';
 
 const SessionRequestIDField = ({ value }) => {
   return (
@@ -61,7 +64,6 @@ const MessageField = ({ value }) => {
   );
 };
 
-
 const DurationField = ({ value }) => {
   return (
     <Grid item xs={12}>
@@ -77,13 +79,12 @@ const DurationField = ({ value }) => {
           </Typography>
         </Grid>
         <Grid item xs={12}>
-         {value}
+          {value}
         </Grid>
       </Grid>
     </Grid>
   );
 };
-
 
 const StartsOn = ({ value }) => {
   return (
@@ -95,7 +96,7 @@ const StartsOn = ({ value }) => {
           </Typography>
         </Grid>
         <Grid item xs={12}>
-        {value}
+          {value}
         </Grid>
       </Grid>
     </Grid>
@@ -112,7 +113,7 @@ const EndsOn = ({ value }) => {
           </Typography>
         </Grid>
         <Grid item xs={12}>
-        {value}
+          {value}
         </Grid>
       </Grid>
     </Grid>
@@ -125,11 +126,11 @@ const StartsAt = ({ value }) => {
       <Grid container justifyContent="space-between" spacing={1}>
         <Grid item xs={12}>
           <Typography variant="subtitle1" color="textSecondary">
-            Start Time 
+            Start Time
           </Typography>
         </Grid>
         <Grid item xs={12}>
-        {value}
+          {value}
         </Grid>
       </Grid>
     </Grid>
@@ -142,11 +143,11 @@ const EndsAt = ({ value }) => {
       <Grid container justifyContent="space-between" spacing={1}>
         <Grid item xs={12}>
           <Typography variant="subtitle1" color="textSecondary">
-            End Time 
+            End Time
           </Typography>
         </Grid>
         <Grid item xs={12}>
-        {value}
+          {value}
         </Grid>
       </Grid>
     </Grid>
@@ -163,14 +164,14 @@ const MenteeName = ({ value }) => {
           </Typography>
         </Grid>
         <Grid item xs={12}>
-        {value}
+          {value}
         </Grid>
       </Grid>
     </Grid>
   );
 };
 
-const RemarkField = ({remark, setRemark}) => {
+const RemarkField = ({ remark, setRemark }) => {
   return (
     <Grid item xs={12}>
       <Grid
@@ -191,7 +192,7 @@ const RemarkField = ({remark, setRemark}) => {
             size="small"
             multiline
             value={remark}
-            onChange={(e)=> setRemark(e.target.value)}
+            onChange={(e) => setRemark(e.target.value)}
           ></TextField>
         </Grid>
       </Grid>
@@ -199,7 +200,7 @@ const RemarkField = ({remark, setRemark}) => {
   );
 };
 
-const SessionLinkField = ({sessionLink, setSessionLink}) => {
+const SessionLinkField = ({ sessionLink, setSessionLink }) => {
   return (
     <Grid item xs={12}>
       <Grid
@@ -220,7 +221,7 @@ const SessionLinkField = ({sessionLink, setSessionLink}) => {
             size="small"
             multiline
             value={sessionLink}
-            onChange={(e)=> setSessionLink(e.target.value)}
+            onChange={(e) => setSessionLink(e.target.value)}
           ></TextField>
         </Grid>
       </Grid>
@@ -228,7 +229,7 @@ const SessionLinkField = ({sessionLink, setSessionLink}) => {
   );
 };
 
-const ActionButton = ({ handleApproval, handleRejection}) => {
+const ActionButton = ({ handleApproval, handleRejection }) => {
   const classes = useStyles();
   return (
     <Grid item xs={12}>
@@ -268,9 +269,8 @@ const ActionButton = ({ handleApproval, handleRejection}) => {
 };
 
 const SessionRequestApprovalCard = ({ request, refetch }) => {
-
   const [loading, setLoading] = useState(null);
-  
+
   const [err, setErr] = useState(null);
 
   const [remark, setRemark] = useState(null);
@@ -282,7 +282,11 @@ const SessionRequestApprovalCard = ({ request, refetch }) => {
   const handleApproval = async () => {
     setLoading(true);
     setErr(null);
-    const { error } = await approveSessionRequests(request._id, remark, sessionLink);
+    const { error } = await approveSessionRequests(
+      request._id,
+      remark,
+      sessionLink
+    );
 
     if (error) {
       setErr(error);
@@ -313,6 +317,7 @@ const SessionRequestApprovalCard = ({ request, refetch }) => {
 
   return (
     <Grid item xs={12} sm={6}>
+      {loading === true && <CustomSnackBar message="please wait" severity="info" />}
       {loading === false && err && (
         <CustomSnackBar message={err} severity="error" />
       )}
@@ -336,21 +341,24 @@ const SessionRequestApprovalCard = ({ request, refetch }) => {
 
             <MessageField value={request.subject} />
 
-            <MenteeName value={request?.menteeName || 'To Be Provided'}/>
+            <MenteeName value={request?.menteeName || 'To Be Provided'} />
 
             <StartsOn value={startsOn} />
 
-            <StartsAt value={startsAt}/>
+            <StartsAt value={startsAt} />
 
             <EndsOn value={endsOn} />
 
-            <EndsAt value={endsAt}/>
+            <EndsAt value={endsAt} />
 
-            <DurationField value={request.duration}/>
+            <DurationField value={request.duration} />
 
-            <RemarkField remark={remark} setRemark={setRemark}/>
+            <RemarkField remark={remark} setRemark={setRemark} />
 
-            <SessionLinkField  sessionLink={sessionLink} setSessionLink={setSessionLink}/>
+            <SessionLinkField
+              sessionLink={sessionLink}
+              setSessionLink={setSessionLink}
+            />
             <ActionButton
               handleApproval={handleApproval}
               remark={remark}

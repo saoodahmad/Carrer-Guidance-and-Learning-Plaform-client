@@ -309,6 +309,9 @@ const Signup = () => {
         />
       </Grid>
 
+      {loading === true && (
+          <CustomSnackBar message="loading" severity="info" />
+        )}
       {loading === false && err && (
         <CustomSnackBar message={err} severity="error" />
       )}

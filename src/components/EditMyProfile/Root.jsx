@@ -12,7 +12,7 @@ import {
 
 import { BASE_URL } from '../../api';
 
-import {categoryOptions} from '../../utils/categories'
+import { categoryOptions } from '../../utils/categories';
 import useStyles from './Styles';
 import { getMyProfile, updateMyProfile } from '../../services/usersService';
 import CustomSnackBar from '../CustomSnackBar/CustomSnackBar';
@@ -258,11 +258,7 @@ const YearOfPassingField = ({ profileCredential, setProfileCredential }) => {
 const InstitutionField = ({ profileCredential, setProfileCredential }) => {
   return (
     <Grid item xs={12}>
-      <Grid
-        container
-        alignItems="center"
-        justifyContent="space-evenly"
-      >
+      <Grid container alignItems="center" justifyContent="space-evenly">
         <Grid item xs={12} md={4}>
           <Typography variant="subtitle1">Institute</Typography>
         </Grid>
@@ -454,7 +450,6 @@ const ProfileImageField = ({
                 personalPhotoURL: url,
                 image: image,
               });
-              
             }}
           />
         </Grid>
@@ -486,7 +481,6 @@ const CategoryField = ({
   setProfileCredential,
   options,
 }) => {
-  
   return (
     <Grid item>
       <Grid
@@ -508,7 +502,6 @@ const CategoryField = ({
                 category: e.target.value,
               })
             }
-            // defaultValue={options[0].value}
             fullWidth
             variant="outlined"
             disableUnderline
@@ -686,12 +679,12 @@ const Root = () => {
           ? `${BASE_URL}/${user.personalPhotoURL}`
           : null;
 
-          let category = user.category ? user.category : categoryOptions[0].value;
+        let category = user.category ? user.category : categoryOptions[0].value;
         setProfileCredential({
           ...user,
           personalPhotoURL: personalPhotoURL,
           image: null,
-          category : category
+          category: category,
         });
       }
       setLoading(false);
@@ -716,6 +709,9 @@ const Root = () => {
   return (
     <div>
       <Container className={classes.container}>
+        {loading === true && (
+          <CustomSnackBar message="loading" severity="info" />
+        )}
         {loading === false && err && (
           <CustomSnackBar message={err} severity="error" />
         )}

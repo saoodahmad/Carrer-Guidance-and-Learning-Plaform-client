@@ -160,8 +160,8 @@ const Root = () => {
 
     if (error) {
       setErr(error);
-    }else {
-    storeToken(token);
+    } else {
+      storeToken(token);
     }
   };
 
@@ -183,6 +183,9 @@ const Root = () => {
           />
         </Grid>
 
+        {loading === true && (
+          <CustomSnackBar message="loading" severity="info" />
+        )}
         {loading === false && err && (
           <CustomSnackBar message={err} severity="error" />
         )}

@@ -37,13 +37,16 @@ const Root = () => {
 
   return (
     <Container maxWidth="md" className={classes.container}>
+      {loading === true && <CustomSnackBar message="loading" severity="info" />}
       {loading === false && err && (
         <CustomSnackBar message={err} severity="error" />
       )}
       {loading === false && sessionRequests && (
         <CustomSnackBar message="Success" severity="success" />
       )}
-      <Typography variant="h6" className={classes.heading}>My Session Requests</Typography>
+      <Typography variant="h6" className={classes.heading}>
+        My Session Requests
+      </Typography>
       {sessionRequests && (
         <Grid
           container
@@ -52,11 +55,8 @@ const Root = () => {
           spacing={4}
         >
           {sessionRequests.map((request) => (
-          <SessionRequestCard
-           request={request}
-           key={request._id}
-          />
-          ))} 
+            <SessionRequestCard request={request} key={request._id} />
+          ))}
         </Grid>
       )}
     </Container>
